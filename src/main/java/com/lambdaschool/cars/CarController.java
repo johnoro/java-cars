@@ -21,7 +21,7 @@ public class CarController {
 
   private List<Car> filter(CheckCar tester) {
     return repository.findAll().stream()
-      .filter(car -> tester.test(car)) // case-insensitive check for being the same
+      .filter(car -> tester.test(car))
       .collect(Collectors.toList());
   }
 
@@ -48,26 +48,47 @@ public class CarController {
   @GetMapping("brand/{brand}")
   public List<Car> someByMake(@PathVariable String brand) {
     send("search for " + brand);
-
                           // case-insensitive check for being the same
     return filter(car -> car.getBrand().compareToIgnoreCase(brand) == 0);
   }
 
   @PostMapping("upload")
   public List<Car> addCars(@RequestBody List<Car> cars) {
-    send("Data loaded"); // should probably be loading
-
-    return repository.saveAll(cars);
+    List<Car> addedCars = repository.saveAll(cars);
+    send("Data loaded");
+    return addedCars;
   }
 
   @DeleteMapping("delete/{id}")
   public Car deleteCar(@PathVariable Long id) {
     Car car = get(id);
-
     repository.deleteById(id);
-
     send(id + " Data deleted");
-
     return car;
+  }
+
+  /* EXTRA / SELF-IMPOSED STRETCH */
+
+  @GetMapping("")
+  public List<Car> all() {
+    return repository.findAll();
+  }
+
+  @GetMapping("model/{model}")
+  public List<Car> someByModel(@PathVariable String model) {
+    send("search for " + model);
+    return filter(car -> car.getModel().compareToIgnoreCase(model) == 0);
+  }
+
+  @PutMapping("update/{id}")
+  public Car updateCar(@PathVariable Long id, @RequestBody Car newCar) {
+    Car updatedCar = get(id);
+
+    updatedCar.setBrand(newCar.getBrand());
+    updatedCar.setModel(newCar.getModel());
+    updatedCar.setYear(newCar.getYear());
+
+    send("updated " + id);
+    return repository.save(updatedCar);
   }
 }
