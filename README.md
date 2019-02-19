@@ -30,22 +30,22 @@ Thus we have sent the message Looked up cars time stamped (the time the message 
 Write a RESTful web application that exposes the following end points
 Expose the following RESTful end points
 ## GET
-/cars/id/{id}
+- [ ] /cars/id/{id}
 returns the car based of of id
 
-/cars/year/{year}
+- [ ] /cars/year/{year}
 returns a list of cars of that year model
 
-/cars/brand/{brand}
+- [ ] /cars/brand/{brand}
 returns a list of cars of that brand
-This gest logged with a message of "search for {brand}". So put the brand of the car that was searched in the message itself.
+This gets logged with a message of "search for {brand}". So put the brand of the car that was searched in the message itself.
 
 ## POST
-/cars/upload  
+- [ ] /cars/upload  
 loads multiple sets of data from the RequestBody
 This gets logged with a message of "Data loaded"
 
 ## DELETE
-/cars/delete/{id}  
+- [ ] /cars/delete/{id}  
 deletes a car from the list based off of the id  
 This gets logged with a message of "{id} Data deleted". So, put the id of the car that got deleted in the message itself.
